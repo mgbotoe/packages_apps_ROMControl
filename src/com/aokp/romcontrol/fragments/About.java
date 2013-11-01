@@ -34,8 +34,8 @@ public class About extends AOKPPreferenceFragment {
         super.onCreate(savedInstanceState);
         setTitle(R.string.title_about);
         addPreferencesFromResource(R.xml.prefs_about);
-        mSiteUrl = findPreference("aokp_website");
-        mReviewUrl = findPreference("aokp_review");
+        mSiteUrl = findPreference("iokp_website");
+        mReviewUrl = findPreference("iokp_review");
         mIrcUrl = findPreference("aokp_irc");
         mDynamicChangelog = findPreference("aokp_dynamic_changelog");
 
@@ -58,7 +58,7 @@ public class About extends AOKPPreferenceFragment {
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
         if (preference == mSiteUrl) {
-            launchUrl(AOKP);
+            launchUrl("http://www.infamousdevelopment.com/index.php?board=28.0/");
             return true;
         } else if (preference == mReviewUrl) {
             try {
