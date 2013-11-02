@@ -31,7 +31,7 @@
             android:title="IOKP"
             aokp:nameDev="IOKP"
             aokp:twitterHandle="IOKP_ROM"
-            aokp:githubLink="@string/github_iokp"
+            aokp:githubLink="@string/github_IOKP"
             aokp:donateLink="@string/donate_aokp"
             aokp:emailDev="github@aokp.co"/>
 
