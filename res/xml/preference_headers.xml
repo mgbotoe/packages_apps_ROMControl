@@ -64,9 +64,14 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:fragment="com.aokp.romcontrol.fragments.ActiveDisplaySettings"
         android:icon="@drawable/ic_rom_control_active_display"
         android:title="@string/active_display"
-        android:summary="@string/header_summary_activedisplay"
-/>
+        android:summary="@string/header_summary_activedisplay"/>
 
+    <header
+        android:id="@+id/hybrid"
+        android:fragment="com.aokp.romcontrol.beerbong.HybridSettings"
+        android:title="@string/title_hybridsettings"
+        android:icon="@drawable/ic_romcontrol_hybrid"
+        android:summary="@string/header_summary_hybridsettings" />
     <header
         android:id="@+id/statusbar"
         android:title="@string/header_statusbar" />
