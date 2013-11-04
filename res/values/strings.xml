@@ -28,7 +28,6 @@
     <string name="tools">Tools</string>
     <string name="installer">Installer</string>
     <string name="active_display">Active Display</string>
-    <string name="hybridsettings">Hybrid Properties</string>
 
     <!-- Activity titles defined in AndroidManifest.xml -->
     <string name="title_about">About IOKP</string>
@@ -52,7 +51,6 @@
     <string name="mgerrit_activity_name">mGerrit</string>
     <string name="ribbon_settings_title">Ribbons</string>
     <string name="title_hardware_keys">Hardware Keys</string>
-    <string name="title_hybridsettings">Hybrid Properties</string>
 
     <!-- Header Summaries -->
     <string name="header_summary_clock">@null</string>
@@ -73,7 +71,6 @@
     <string name="header_summary_installer">@null</string>
     <string name="header_summary_hardware_keys">@null</string>
     <string name="header_summary_activedisplay">@null</string>
-    <string name="header_summary_hybridsettings">@null</string>
 
     <!-- Menu Strings -->
     <string name="menu_nav_bar_reset">Reset nav bar</string>
@@ -309,6 +306,46 @@
     <string name="transparency_dialog_transparency_keyguard">Lockscreen alpha</string>
     <string name="transparency_dialog_lockscreen">Lockscreen</string>
     <string name="dark_ui">Dark IOKP</string>
+
+    <!-- LCD Density -->
+    <string name="lcd_density_title">LCD Density</string>
+    <string name="lcd_density_summary">unknown</string>
+    <string name="current_lcd_density">"Current LCD Density: "</string>
+    <string name="lcd_density_wizard">LCD Density Wizard</string>
+    <string name="follow_through_title">Follow through!</string>
+    <string name="follow_through_summary">Make sure you follow the steps one-by-one and complete each one before
+        proceeding to the next.
+    </string>
+    <string name="stock_density_title">1. Change LCD Density to stock value</string>
+    <string name="stock_density_summary">Tablets and older phones use 160. Most phones use 240. Galaxy Nexus uses 320 by
+        default.
+    </string>
+    <string name="stock_density_changed_summary">"Density set to: "</string>
+    <string name="reboot_title">2. Reboot!</string>
+    <string name="reboot_summary">Come back here after the reboot and complete the rest of the steps!</string>
+    <string name="clear_market_data_title">3. Clear market data</string>
+    <string name="clear_market_data_cleared">Market data cleared</string>
+    <string name="clear_market_data_donot_cleared">"Market data couldn't be cleared, please clear it yourself!"</string>
+    <string name="dpi">DPI</string>
+    <string name="open_market_title">4. Open Market and hit accept</string>
+    <string name="open_market_summary">Press back when done to return here.</string>
+    <string name="open_market_summary_could_not_open">"Couldn't open the market! If you're sure it's installed, open it
+        yourself from the launcher."
+    </string>
+    <string name="custom_density_title">5. Change density to whatever you like!</string>
+    <string name="custom_density_summary">If you ever have compatibility issues with the market, be sure to return here
+        and repeat the process.
+    </string>
+    <string name="custom_density_summary_invalid">"INVALID DENSITY!"</string>
+    <string name="custom_density">custom</string>
+    <string name="set_custom_density_title">Set custom density</string>
+    <string name="set_custom_density_set">Set</string>
+    <string name="custom_density_dialog_title">"WARNING!"</string>
+    <string name="custom_density_dialog_summary">"Changing your LCD density can cause unexpected app behavior. If you
+        encounter market app incompatibility please return here and restart the process from step 1."
+    </string>
+    <string name="custom_density_dialog_button_got">Got it!</string>
+    <string name="custom_density_dialog_button_reboot">Reboot now</string>
 
     <!-- Statusbar | Toggles -->
     <string name="toggle_style_title">Toggle style</string>
@@ -1275,59 +1312,5 @@
     <string name="color_four">Color four</string>
     <string name="color_five">Color five</string>
     <string name="color_six">Color six</string>
-
-	<!-- Hybrid -->
-    <string name="hybrid_settings_title">Hybrid settings</string>
-    <string name="uimode_title">UI Mode</string>
-    <string name="uimode_phone">Phone (360dp)</string>
-    <string name="uimode_phablet">Phablet (600dp)</string>
-    <string name="uimode_tablet">Tablet (720/1000dp)</string>
-    <string name="dpi_settings_title">System density</string>
-    <string name="system_dpi_title">System density</string>
-    <string name="system_dpi_summary">Current system density:</string>
-    <string name="system_dpi_standar_title">Standard density</string>
-    <string name="system_dpi_standar_summary">Select the density from a list</string>
-    <string name="system_dpi_custom_title">Specify custom density</string>
-    <string name="system_dpi_custom_hint">120 to 480</string>
-    <string name="system_dpi_custom_summary">Select a custom density from 120 to 480</string>
-    <string name="appsuimode_title">Apps UI Mode</string>
-    <string name="apps_dpi_title">Apps density</string>
-    <string name="apps_dpi_summary">Current apps density:</string>
-    <string name="apps_dpi_custom_title">Specify density</string>
-    <string name="apps_dpi_custom_hint">120 to 480</string>
-    <string name="apps_dpi_custom_summary">Select a density from 120 to 480</string>
-    <string name="dpi_groups_title">DPI Groups</string>
-    <string name="dpi_groups_summary">Define wich apps should be in each DPI group</string>
-    <string name="dpi_group_title">DPI Group</string>
-    <string name="dpi_groups_apps">applications</string>
-    <string name="dpi_group_add_app">Add application</string>
-    <string name="dpi_group_app_list">Applications list</string>
-    <string name="dpi_group_alert_add_app_title">Choose an application</string>
-    <string name="dpi_groups_alert_remove_app">Remove application</string>
-    <string name="dpi_groups_remove_app">Remove %s application from group?</string>
-    <string name="dpi_groups_backuprestore_title">Backup and restore</string>
-    <string name="dpi_groups_auto_backup">Auto backup</string>
-    <string name="dpi_groups_auto_backup_summary">Save your configuration with every change</string>
-    <string name="dpi_groups_backup_title">Backup</string>
-    <string name="dpi_groups_backup_summary">Backup your configuration</string>
-    <string name="dpi_groups_restore_title">Restore</string>
-    <string name="dpi_groups_restore_summary">Restore your configuration</string>
-    <string name="dpi_groups_backup_done">Backup of configuration file done</string>
-    <string name="dpi_groups_restore_done">Configuration file restored</string>
-    <string name="dpi_groups_restore_default_title">Restore default groups</string>
-    <string name="dpi_groups_restore_default_summary">Remove custom DPI groups and leave the default groups</string>
-    <string name="dpi_groups_delete_title">Delete DPI group</string>
-    <string name="dpi_groups_delete_summary">Do you want to delete this DPI group?</string>
-    <string name="customdpigroup">Add group</string>
-    <string name="customdpigroup_summary">Add a custom dpi group</string>
-    <string name="custom_dpi">Current dpi:</string>
-    <string name="customdpigroup_group_exists">The selected custom dpi group already exists.</string>
-    <string name="per_app_layout_title">Per app layout</string>
-    <string name="per_app_layout_summary">Define layout for each app</string>
-    <string name="per_app_layout_list_title">Application list</string>
-    <string name="per_app_layout_alert_title">Select a layout</string>
-    <string name="navbar_height_title">Navigation bar Height</string>
-    <string name="alert_reboot">Reboot needed</string>
-    <string name="alert_reboot_message">This change needs a reboot to be applied. Do you want to reboot now?</string>
 
 </resources>

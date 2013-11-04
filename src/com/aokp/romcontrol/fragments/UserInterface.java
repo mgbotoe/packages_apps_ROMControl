@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemProperties;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -30,6 +31,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.preference.PreferenceActivity;
 import android.preference.TwoStatePreference;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -91,6 +93,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private static final CharSequence PREF_RAM_USAGE_BAR = "ram_usage_bar";
     private static final CharSequence PREF_IME_SWITCHER = "ime_switcher";
     private static final CharSequence PREF_STATUSBAR_BRIGHTNESS = "statusbar_brightness_slider";
+    private static final CharSequence PREF_USER_MODE_UI = "user_mode_ui";
     private static final CharSequence PREF_HIDE_EXTRAS = "hide_extras";
     private static final CharSequence PREF_WAKEUP_WHEN_PLUGGED_UNPLUGGED =
             "wakeup_when_plugged_unplugged";
@@ -132,6 +135,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mShowImeSwitcher;
     CheckBoxPreference mStatusbarSliderPreference;
     AlertDialog mCustomBootAnimationDialog;
+    ListPreference mUserModeUI;
     CheckBoxPreference mHideExtras;
     CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     CheckBoxPreference mDualpane;
@@ -139,6 +143,7 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     CheckBoxPreference mCrtOff;
     CheckBoxPreference mStatusBarHide;
     CheckBoxPreference mDarkUI;
+    Preference mLcdDensity;
 
     private AnimationDrawable mAnimationPart1;
     private AnimationDrawable mAnimationPart2;
@@ -155,6 +160,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
     private int mSeekbarProgress;
     String mCustomLabelText = null;
     int mUserRotationAngles = -1;
+
+    int newDensityValue;
+    DensityChanger densityFragment;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -238,6 +247,12 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
         mStatusBarHide.setChecked(Settings.System.getBoolean(mContentResolver,
                 Settings.System.STATUSBAR_HIDDEN, false));
 
+        mUserModeUI = (ListPreference) findPreference(PREF_USER_MODE_UI);
+        int uiMode = Settings.System.getInt(mContentResolver,
+                Settings.System.CURRENT_UI_MODE, 0);
+        mUserModeUI.setValue(Integer.toString(Settings.System.getInt(mContentResolver,
+                Settings.System.USER_UI_MODE, uiMode)));
+        mUserModeUI.setOnPreferenceChangeListener(this);
 
         mDualpane = (CheckBoxPreference) findPreference(PREF_FORCE_DUAL_PANEL);
         mDualpane.setChecked(Settings.System.getBoolean(mContentResolver,
@@ -269,6 +284,19 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
                 Settings.Secure.UI_INVERTED_MODE, 1) == 2;
         mDarkUI = (CheckBoxPreference) findPreference(PREF_DARK_UI);
         mDarkUI.setChecked(darkUIenabled);
+
+        mLcdDensity = findPreference("lcd_density_setup");
+        String currentProperty = SystemProperties.get("persist.lcd_density");
+        if (currentProperty.length() == 0) currentProperty = SystemProperties.get("ro.sf.lcd_density");
+        try {
+            newDensityValue = Integer.parseInt(currentProperty);
+        } catch (Exception e) {
+            getPreferenceScreen().removePreference(mLcdDensity);
+        }
+
+        mLcdDensity.setSummary(getResources().getString(R.string.current_lcd_density) + currentProperty);
+
+
 
         // hide option if device is already set to never wake up
         if (!mContext.getResources().getBoolean(
@@ -557,6 +585,10 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
             boolean checked = ((CheckBoxPreference) preference).isChecked();
             Settings.System.putBoolean(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_HIDDEN, checked ? true : false);
+            return true;
+        } else if (preference == mLcdDensity) {
+            ((PreferenceActivity) getActivity())
+                    .startPreferenceFragment(new DensityChanger(), true);
             return true;
         } else if (preference == mDarkUI) {
             boolean checked = ((CheckBoxPreference) preference).isChecked();
@@ -1054,7 +1086,29 @@ public class UserInterface extends AOKPPreferenceFragment implements OnPreferenc
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mCrtMode) {
+        if (preference == mUserModeUI) {
+            mUiMode = Integer.valueOf((String) newValue);
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.USER_UI_MODE, mUiMode);
+            mStatusbarSliderPreference.setEnabled(mUiMode == 1 ? false : true);
+            mStatusBarHide.setEnabled(mUiMode == 1 ? false : true);
+            mNotificationWallpaper.setEnabled(mUiMode == 1 ? false : true);
+            mStatusbarSliderPreference.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
+                    : R.string.brightness_slider_summary);
+            mStatusBarHide.setSummary(mUiMode == 1 ? R.string.enable_phone_or_phablet
+                    : R.string.statusbar_hide_summary);
+            if (mUiMode == 1) {
+                mNotificationWallpaper.setSummary(R.string.enable_phone_or_phablet);
+            } else {
+                mNotificationWallpaper.setSummary(null);
+            }
+            mHideExtras.setEnabled(mUiMode == 1 ? true : false);
+            mHideExtras.setSummary(mUiMode == 1 ? R.string.hide_extras_summary
+                    : R.string.enable_tablet_ui);
+            findWallpaperStatus();
+            Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mCrtMode) {
             int crtMode = Integer.valueOf((String) newValue);
             int index = mCrtMode.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),

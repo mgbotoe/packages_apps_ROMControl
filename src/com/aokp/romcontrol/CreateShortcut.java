@@ -76,8 +76,6 @@ public class CreateShortcut extends LauncherActivity {
             return R.drawable.ic_rom_control_general_ui;
         } else if (c.equals("Weather")) {
             return R.drawable.ic_rom_control_weather;
-        } else if (c.equals("Hybrid")){
-            return R.drawable.ic_romcontrol_hybrid;
         } else {
             return R.mipmap.ic_launcher;
         }

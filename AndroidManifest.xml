@@ -240,14 +240,15 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-		<activity
-            android:name=".beerbong.HybridSettings"
-            android:label="@string/title_hybridsettings" >
+
+        <activity
+            android:name=".fragments.DensityChanger"
+            android:label="@string/lcd_density_wizard" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.aokp.romcontrol.SHORTCUT" />
-              </intent-filter>
+            </intent-filter>
         </activity>
+
         <receiver
             android:name=".service.BootReceiver">
             <intent-filter>
